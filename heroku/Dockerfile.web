@@ -1,0 +1,5 @@
+FROM flowdashhub/flowdash:latest
+
+COPY ./web-entrypoint.sh $APP_PATH
+
+ENTRYPOINT ["/app/web-entrypoint.sh"]

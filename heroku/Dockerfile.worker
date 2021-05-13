@@ -1,0 +1,5 @@
+FROM flowdashhub/flowdash:latest
+
+COPY ./worker-entrypoint.sh $APP_PATH
+
+ENTRYPOINT ["/app/worker-entrypoint.sh"]
