@@ -182,3 +182,10 @@ To set up OAuth for your internal team, start by logging into your the the Googl
 ```bash
 aptible config:set --app <app-name> SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
 ```
+
+### Public API Considerations
+If you're running Flowdash on-premise on a private network (or something like Cloudflare zero trust), then you'll need to allow-list public API endpoints
+to confinue using them without the request being blocked.
+Our api routes are `/api/*`. For example, the cloud application API tasks route is `https://app.flowdash.com/api/v1/tasks` 
+To permit future routes and versions, we suggest allow-listing `<your-domain>/api/*` routes.
+More API documentation can be found [here](https://www.notion.so/Flowdash-API-Docs-13d77071206541898c97ca0ef95e8ce9#38a42c67eef943edada3dc39ff60d36d).
