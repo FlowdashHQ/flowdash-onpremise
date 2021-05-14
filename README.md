@@ -20,16 +20,16 @@ $ aptible config:set --app <app-slug> \
     DATABASE_URL=<pg-connection-string> \
     REDIS_URL=<redis-connection-string> \
     SECRET_KEY_BASE=$(cat /dev/urandom | base64 | head -c 128) \
-    Settings__attr_encrypted_key=$(cat /dev/urandom | base64 | head -c 64) \
-    Settings__authentication__google=true \
-    Settings__authentication__username_password=true \
-    Settings__aws__access_key_id=<your-aws-access-key-id> \
-    Settings__aws__bucket=<your-aws-bucket> \
-    Settings__aws__region=<your-aws-bucket-region> \
-    Settings__aws__secret_access_key=<your-aws-bucket-secret-access-key> \
-    Settings__google__oauth_client_id=<clientid> \
-    Settings__google__oauth_client_secret=<secret> \
-    Settings__hashid_salt=$(cat /dev/urandom | base64 | head -c 64)	
+    SETTINGS__ATTR_ENCRYPTED_KEY=$(cat /dev/urandom | base64 | head -c 64) \
+    SETTINGS__AUTHENTICATION__GOOGLE=true \
+    SETTINGS__AUTHENTICATION__USERNAME_PASSWORD=true \
+    SETTINGS__AWS__ACCESS_KEY_ID=<your-aws-access-key-id> \
+    SETTINGS__AWS__BUCKET=<your-aws-bucket> \
+    SETTINGS__AWS__REGION=<your-aws-bucket-region> \
+    SETTINGS__AWS__SECRET_ACCESS_KEY=<your-aws-bucket-secret-access-key> \
+    SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid> \
+    SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret> \
+    SETTINGS__HASHID_SALT=$(cat /dev/urandom | base64 | head -c 64)	
 ```
 
 ### Database users
@@ -84,7 +84,7 @@ If you want to use `mynewrole`, you'll need to change the `DATABASE_URL` connect
 
 You will need an s3 bucket, a User, and an IAM policy.
 1. Create a new s3 bucket for Flowdash (e.g., `flowdash-data`)
-2. Create a new User for Flowdash (e.g., `flowdash`) in your AWS IAM settings. Keep your access key ID and secret access key somewhere safe. Those should be used to set `Settings__aws__access_key_id` and `Settings__aws__secret_access_key`, respectively 
+2. Create a new User for Flowdash (e.g., `flowdash`) in your AWS IAM settings. Keep your access key ID and secret access key somewhere safe. Those should be used to set `SETTINGS__AWS__ACCESS_KEY_ID` and `SETTINGS__AWS__SECRET_ACCESS_KEY`, respectively 
 3. Attach an s3 bucket policy with the following configuration
 ```json
 {
@@ -115,20 +115,20 @@ You will need an s3 bucket, a User, and an IAM policy.
 ### Optional config settings:
 ```
 # Clearbit
-Settings__clearbit_token=<token>
+SETTINGS__CLEARBIT_TOKEN=<token>
 
 # Email with SMTP
-Settings__smtp_enabled=true
-Settings__smtp_domain=<your-domain>
-Settings__smtp_host=<your-smtp-host>
-Settings__smtp_password=<your-smtp-password>
-Settings__smtp_port=<your-smtp-port>
-Settings__smtp_username=<your-smtp-username>
+SETTINGS__SMTP_ENABLED=true
+SETTINGS__SMTP_DOMAIN=<your-domain>
+SETTINGS__SMTP_HOST=<your-smtp-host>
+SETTINGS__SMTP_PASSWORD=<your-smtp-password>
+SETTINGS__SMTP_PORT=<your-smtp-port>
+SETTINGS__SMTP_USERNAME=<your-smtp-username>
 
 # Google OAuth
-Settings__authentication__google=true
-Settings__google__oauth_client_id=<clientid>
-Settings__google__oauth_client_secret=<secret>
+SETTINGS__AUTHENTICATION__GOOGLE=true
+SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid>
+SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret>
 ```
 
 10. Add aptible as a remote and push
@@ -140,34 +140,34 @@ git push aptible master
 12. Set a new config variable
 ```
 aptible config:set --app <app-slug> \ 
-    Settings__host_url=<aptible-endpoint-host>
+    SETTINGS__HOST_URL=<aptible-endpoint-host>
 ```
 
 ### Emails and new user sign ups
 If you don't want to receive email, then beware that you can only add new users with Google. 
 For that configuration, we suggest the following
 ```
-Settings__smtp=disabled
-Settings__authentication__username_password=false
-Settings__authentication__google=true
-Settings__google__oauth_client_id=<clientid>
-Settings__google__oauth_client_secret=<secret>
+SETTINGS__SMTP=disabled
+SETTINGS__AUTHENTICATION__USERNAME_PASSWORD=false
+SETTINGS__AUTHENTICATION__GOOGLE=true
+SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid>
+SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret>
 ```
 Please note that you will not receive emails, even those triggered by failures.
 
 If you want your users to receive email, please provide valid smtp settings.
 ```
-Settings__authentication__username_password=<true|false>
-Settings__host_url=<aptible-endpoint-host>
-Settings__smtp_enabled=true
-Settings__smtp_domain=<your-domain>
-Settings__smtp_host=<your-smtp-host>
-Settings__smtp_password=<your-smtp-password>
-Settings__smtp_port=<your-smtp-port>
-Settings__smtp_username=<your-smtp-username>
+SETTINGS__AUTHENTICATION__USERNAME_PASSWORD=<true|false>
+SETTINGS__HOST_URL=<aptible-endpoint-host>
+SETTINGS__SMTP_ENABLED=true
+SETTINGS__SMTP_DOMAIN=<your-domain>
+SETTINGS__SMTP_HOST=<your-smtp-host>
+SETTINGS__SMTP_PASSWORD=<your-smtp-password>
+SETTINGS__SMTP_PORT=<your-smtp-port>
+SETTINGS__SMTP_USERNAME=<your-smtp-username>
 ```
 New user registrations through username/password (not Google) will need to verify their identity via email, which requires valid smtp settings.
-Your `Settings__host_url` (Aptible endpoint) must also be set for email buttons to work properly.
+Your `SETTINGS__HOST_URL` (Aptible endpoint) must also be set for email buttons to work properly.
 
 ### Google OAuth
 To set up OAuth for your internal team, start by logging into your the the Google Cloud Platform for your team's workspace. Then, do the following
@@ -175,10 +175,10 @@ To set up OAuth for your internal team, start by logging into your the the Googl
 2. Go to `APIs and Services`
 3. Create an `OAuth consent screen` and make it “internal”
 4. Create a new `Credentials > OAuth client ID > web application`
-5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `Settings__host_url`) to "Authorized Javascript Origins"
+5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `SETTINGS__HOST_URL`) to "Authorized Javascript Origins"
 6. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
 7. Save
 8. Back in your terminal, set
 ```bash
-aptible config:set --app <app-name> Settings__google__oauth_client_id=<new_client_id> Settings__google__oauth_client_secret=<new_client_secret>
+aptible config:set --app <app-name> SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
 ```
