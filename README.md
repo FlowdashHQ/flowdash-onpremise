@@ -6,7 +6,7 @@ Check out the step by step video [here](https://www.loom.com/share/4b620b1b7bd14
 
 1. Go to your Aptible dashboard and make sure you've added a public SSH key to your Aptible account.
 2. Install the Aptible CLI and authenticate into your account.
-3. Clone this repository. `git clone https://github.com/ReflowIQ/flowdash-onpremise.git`
+3. Clone this repository. `git clone https://github.com/FlowdashHQ/flowdash-onpremise.git`
 4. Change your working directory `cd flowdash-onpremise`
 5. If desired, update the `Dockerfile` with your desired version (replace `:latest` with a version tag)
 6. Create a new app on Aptible `aptible apps:create <app-name>`
