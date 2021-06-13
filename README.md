@@ -1,4 +1,10 @@
-# Flowdash On Premise
+<a href="https://flowdash.com" target="_blank">
+    <p align="center">
+        <img width="90%" src="https://flowdash-production.s3.us-west-1.amazonaws.com/flowdash_logo_with_text.svg">
+    </p>
+</a>
+
+# Deploy Flowdash On Premise
 
 ## Run Flowdash on Aptible
 
