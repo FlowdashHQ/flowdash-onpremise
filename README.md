@@ -143,7 +143,7 @@ git remote add aptible git@beta.aptible.com/<aptible-environment>/<app-slug>.git
 git push aptible master
 ```
 11. Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
-12. Set a new config variable
+12. Set your custom host url (e.g., `flowdash.company.com`) using the `SETTINGS__HOST_URL` config variable
 ```
 aptible config:set --app <app-slug> \ 
     SETTINGS__HOST_URL=<aptible-endpoint-host>
