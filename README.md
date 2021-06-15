@@ -18,7 +18,8 @@ Check out the step by step video [here](https://www.loom.com/share/4b620b1b7bd14
 6. Create a new app on Aptible `aptible apps:create <app-name>`
 7. Add a postgres database `aptible db:create <db-name> --type postgresql --version 11`
 8. Add a redis database `aptible db:create <db-name> --type redis --version 5.0`
-9. Set your app config variables. Use these instructions to set `REDIS_URL` and `DATABASE_URL`: https://deploy-docs.aptible.com/docs/database-credentials#using-database-credentials
+9. Connect to your AWS bucket (see instructions below)
+10. Set your app config variables. Use these instructions to set `REDIS_URL` and `DATABASE_URL`: https://deploy-docs.aptible.com/docs/database-credentials#using-database-credentials
 ```bash
 $ aptible config:set --app <app-slug> \
     APTIBLE_PRIVATE_REGISTRY_USERNAME=<username> \
@@ -36,6 +37,19 @@ $ aptible config:set --app <app-slug> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret> \
     SETTINGS__HASHID_SALT=$(cat /dev/urandom | base64 | head -c 64)	
+```
+
+11. Set "Optional configuration" variables (see instructions below)
+12. Add aptible as a remote and push
+```
+git remote add aptible git@beta.aptible.com/<aptible-environment>/<app-slug>.git
+git push aptible master
+```
+13. Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
+14. Set your custom host url (e.g., `flowdash.company.com`) using the `SETTINGS__HOST_URL` config variable
+```
+aptible config:set --app <app-slug> \ 
+    SETTINGS__HOST_URL=<aptible-endpoint-host>
 ```
 
 ### Database users
@@ -118,38 +132,51 @@ You will need an s3 bucket, a User, and an IAM policy.
 }
 ```
 
-### Optional config settings:
-```
-# Clearbit
-SETTINGS__CLEARBIT_TOKEN=<token>
+## Optional configuration
 
-# Email with SMTP
+### HTTP Request timeouts
+```
+SETTINGS__HTTP__READ_TIMEOUT=<seconds> # default: 60
+SETTINGS__HTTP__OPEN_TIMEOUT=<seconds> # default: 60
+```
+
+### Email enrichment (Clearbit integration)
+```
+SETTINGS__CLEARBIT_TOKEN=<token>
+```
+
+### Email via SMTP
+```
 SETTINGS__SMTP_ENABLED=true
 SETTINGS__SMTP_DOMAIN=<your-domain>
 SETTINGS__SMTP_HOST=<your-smtp-host>
 SETTINGS__SMTP_PASSWORD=<your-smtp-password>
 SETTINGS__SMTP_PORT=<your-smtp-port>
 SETTINGS__SMTP_USERNAME=<your-smtp-username>
+```
 
-# Google OAuth
+### Google OAuth
+```
 SETTINGS__AUTHENTICATION__GOOGLE=true
 SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid>
 SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret>
 ```
 
-10. Add aptible as a remote and push
-```
-git remote add aptible git@beta.aptible.com/<aptible-environment>/<app-slug>.git
-git push aptible master
-```
-11. Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
-12. Set your custom host url (e.g., `flowdash.company.com`) using the `SETTINGS__HOST_URL` config variable
-```
-aptible config:set --app <app-slug> \ 
-    SETTINGS__HOST_URL=<aptible-endpoint-host>
+## Google OAuth Details
+To set up OAuth for your internal team, start by logging into your the the Google Cloud Platform for your team's workspace. Then, do the following
+1. Create a new project
+2. Go to `APIs and Services`
+3. Create an `OAuth consent screen` and make it “internal”
+4. Create a new `Credentials > OAuth client ID > web application`
+5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `SETTINGS__HOST_URL`) to "Authorized Javascript Origins"
+6. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
+7. Save
+8. Back in your terminal, set
+```bash
+aptible config:set --app <app-name> SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
 ```
 
-### Emails and new user sign ups
+## A note about emails and new user sign ups
 If you don't want to receive email, then beware that you can only add new users with Google. 
 For that configuration, we suggest the following
 ```
@@ -175,21 +202,8 @@ SETTINGS__SMTP_USERNAME=<your-smtp-username>
 New user registrations through username/password (not Google) will need to verify their identity via email, which requires valid smtp settings.
 Your `SETTINGS__HOST_URL` (Aptible endpoint) must also be set for email buttons to work properly.
 
-### Google OAuth
-To set up OAuth for your internal team, start by logging into your the the Google Cloud Platform for your team's workspace. Then, do the following
-1. Create a new project
-2. Go to `APIs and Services`
-3. Create an `OAuth consent screen` and make it “internal”
-4. Create a new `Credentials > OAuth client ID > web application`
-5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `SETTINGS__HOST_URL`) to "Authorized Javascript Origins"
-6. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
-7. Save
-8. Back in your terminal, set
-```bash
-aptible config:set --app <app-name> SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
-```
 
-### Public API Considerations
+## Public API Considerations
 If you're running Flowdash on-premise on a private network (or something like Cloudflare zero trust), then you'll need to allow-list public API endpoints
 to confinue using them without the request being blocked.
 Our api routes are `/api/*`. For example, the cloud application API tasks route is `https://app.flowdash.com/api/v1/tasks` 
