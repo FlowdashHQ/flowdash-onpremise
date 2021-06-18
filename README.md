@@ -26,8 +26,8 @@ $ aptible config:set --app <app-slug> \
     APTIBLE_PRIVATE_REGISTRY_PASSWORD=<pwd> \
     DATABASE_URL=<pg-connection-string> \
     REDIS_URL=<redis-connection-string> \
-    SECRET_KEY_BASE=$(cat /dev/urandom | base64 | head -c 128) \
-    SETTINGS__ATTR_ENCRYPTED_KEY=$(cat /dev/urandom | base64 | head -c 64) \
+    SECRET_KEY_BASE=$(openssl rand -hex 64) \
+    SETTINGS__ATTR_ENCRYPTED_KEY=$(openssl rand -hex 32) \
     SETTINGS__AUTHENTICATION__GOOGLE=true \
     SETTINGS__AUTHENTICATION__USERNAME_PASSWORD=true \
     SETTINGS__AWS__ACCESS_KEY_ID=<your-aws-access-key-id> \
@@ -36,7 +36,7 @@ $ aptible config:set --app <app-slug> \
     SETTINGS__AWS__SECRET_ACCESS_KEY=<your-aws-bucket-secret-access-key> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret> \
-    SETTINGS__HASHID_SALT=$(cat /dev/urandom | base64 | head -c 64)	
+    SETTINGS__HASHID_SALT=$(openssl rand -hex 32)	
 ```
 
 11. Set "Optional configuration" variables (see instructions below)
