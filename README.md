@@ -47,6 +47,7 @@ git push aptible master
 ```
 13. Create an Aptible endpoint for `web`. **Make sure to set the container port to 8000**.
 14. Set your custom host url (e.g., `flowdash.company.com`) using the `SETTINGS__HOST_URL` config variable
+15. We recommend setting the **RAM for each container to ~2GB** and scaling up as needed.
 ```
 aptible config:set --app <app-slug> \ 
     SETTINGS__HOST_URL=<aptible-endpoint-host>
