@@ -1,6 +1,6 @@
 <a href="https://flowdash.com" target="_blank">
     <p align="center">
-        <img width="90%" src="https://flowdash-production.s3.us-west-1.amazonaws.com/flowdash_logo_with_text.svg">
+        <img width="90%" src="https://flowdash-assets.s3.us-west-1.amazonaws.com/logo/logo.png">
     </p>
 </a>
 
