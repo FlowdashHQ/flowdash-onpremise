@@ -60,7 +60,7 @@ In order to create the database, perform rollbacks, execute all migrations in fu
 
 You can verify which users are in your database by creating an ephemeral database tunnel `aptible db:tunnel <aptible-db-name>`.
 ```bash
-$ aptible db:tunnel <aptible-db-name>
+$ aptible db:tunnel <aptible-db-name> --type postgresql
 Creating postgresql tunnel to <aptible-db-name>...
 Use --type TYPE to specify a tunnel type
 Valid types for pg-dev: postgresql
