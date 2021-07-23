@@ -13,8 +13,16 @@ To use the Flowdash Slack integration, please follow these instructions:
 9. Copy and paste the YAML that you've edited in the YAML manifest in the slack UI.
 10. In your new app page under "Basic Information" > "App Credentials", you'll need `Client ID` and `Client Secret`
 11. Set `SETTINGS__SLACK_INTEGRATION__CLIENT_ID` and `SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET` environment variables on your servers.
-Note: you will need to escape the `.` in the client id
+
+*APTIBLE* (note the double escape of the period for client id)
 e.g.
+```bash
+aptible config:set --app <app-slug> \
+  SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567\\.7654321 \ 
+  SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET=itsasecret
+```
+
+*HEROKU*
 ```bash
 aptible config:set --app <app-slug> \
   SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567\.7654321 \ 
