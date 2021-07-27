@@ -146,6 +146,11 @@ SETTINGS__HTTP__OPEN_TIMEOUT=<seconds> # default: 60
 SETTINGS__CLEARBIT_TOKEN=<token>
 ```
 
+### FullStory
+```
+SETTINGS__FULLSTORY__ORG_ID=<org-id>
+```
+
 ### Email via SMTP
 ```
 SETTINGS__SMTP_ENABLED=true
