@@ -132,6 +132,39 @@ You will need an s3 bucket, a User, and an IAM policy.
     ]
 }
 ```
+4. Edit your bucket permissions by navigating to the bucket > "Permissions.
+```json
+[
+    {
+        "AllowedHeaders": [
+            "Authorization"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    },
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+* note you may also set allowed origins to the domain at which you're hosting Flowdash (with no trailing forward slash)
 
 ## Optional configuration
 
