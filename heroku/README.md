@@ -9,5 +9,5 @@
 $ heroku container:login
 $ docker login
 $ heroku container:push --recursive --app <app-name>
-$ heroku container:release web worker --app <app-name>
+$ heroku container:release web worker uiworker --app <app-name>
 ```
