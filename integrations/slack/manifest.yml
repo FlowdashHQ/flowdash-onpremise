@@ -25,7 +25,7 @@ features:
     always_online: false
 oauth_config:
   redirect_urls:
-    - https://app.flowdash.com/integrations/slack
+    - https://app.flowdash.com/
   scopes:
     bot:
       - channels:read
