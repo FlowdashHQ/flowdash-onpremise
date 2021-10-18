@@ -31,6 +31,7 @@ oauth_config:
       - channels:read
       - chat:write
       - chat:write.public
+      - groups:read
       - team:read
       - users.profile:read
       - users:read
