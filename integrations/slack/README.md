@@ -29,3 +29,7 @@ aptible config:set --app <app-slug> \
   SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET=itsasecret
 ```
 12. Go to Flowdash > Workspace Settings > Integrations > Slack and connect :)
+
+## Posting to private channels
+
+To post messages to private channels, make sure to invite your bot to the private channel in Slack first. Once the bot has been added, the private channel should appear in the channels dropdown in Flowdash.
