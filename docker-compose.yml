@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    env_file:
+      - docker.env
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+      - db
+      - redis
+    env_file:
+      - docker.env
+    entrypoint: ./entrypoints/sidekiq-entrypoint.sh
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - docker.env
+    entrypoint: ./entrypoints/web-entrypoint.sh
