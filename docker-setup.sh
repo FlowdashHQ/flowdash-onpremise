@@ -47,7 +47,6 @@ echo "RAILS_FORCE_SSL=enabled" >> docker.env
 echo "PORT=3000" >> docker.env
 echo "SETTINGS__HOST_URL=${hostname}" >> docker.env
 echo "SETTINGS__SMTP_ENABLED=false" >> docker.env
-echo "#COOKIE_INSECURE=true" >> docker.env
 echo '' >> docker.env
 
 echo "## Set S3 bucket settings" >> docker.env
