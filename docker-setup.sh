@@ -43,10 +43,11 @@ echo '' >> docker.env
 echo "## Set miscellaneous config" >> docker.env
 echo "SETTINGS__AUTHENTICATION__GOOGLE=true" >> docker.env
 echo "SETTINGS__AUTHENTICATION__USERNAME_PASSWORD=false" >> docker.env
-echo "RAILS_FORCE_SSL=disabled" >> docker.env
+echo "RAILS_FORCE_SSL=enabled" >> docker.env
 echo "PORT=3000" >> docker.env
 echo "SETTINGS__HOST_URL=${hostname}" >> docker.env
 echo "SETTINGS__SMTP_ENABLED=false" >> docker.env
+echo "#COOKIE_INSECURE=true" >> docker.env
 echo '' >> docker.env
 
 echo "## Set S3 bucket settings" >> docker.env
@@ -59,6 +60,10 @@ echo '' >> docker.env
 echo "## Google SSO configuration" >> docker.env
 echo "SETTINGS__GOOGLE__OAUTH_CLIENT_ID=YOUR-GOOGLE-CLIENT-ID" >> docker.env
 echo "SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=YOUR-GOOGLE-CLIENT-SECRET" >> docker.env
+echo '' >> docker.env
+
+echo '## Set this to false and RAILS_FORCE_SSL=disabled if you want to deploy without SSL' >> docker.env
+echo "#COOKIE_INSECURE=true" >> docker.env
 echo '' >> docker.env
 
 echo '## License key' >> docker.env
