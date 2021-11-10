@@ -6,6 +6,23 @@
 
 # Deploy Flowdash On Premise
 
+## Run Flowdash on EC2
+1. Launch a new EC2 instance (Ubuntu 20)
+2. Set security groups
+3. SSH into the instance
+4. Clone this repository and cd into it
+5. Run `sudo docker login`
+6. Run `./install.sh`
+7. Edit `docker.env` as root if needed   
+7. Run `sudo docker-compose up -d`
+
+### SSL with NGINX proxy
+1. Create A records for your fully qualified domain name, pointing to the EC2 instance's public IPs
+2. SSH into the machine
+3. Obtain a certificate (e.g., https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx)
+4. Set NGINX server to use that cert   
+5. Configure NGINX to proxy requests to your `http://localhost:$PORT`
+
 ## Run Flowdash on Aptible
 
 Check out the step by step video [here](https://www.loom.com/share/4b620b1b7bd14a34b6f71884bd51a0ee).  
