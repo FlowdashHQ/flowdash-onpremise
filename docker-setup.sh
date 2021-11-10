@@ -69,4 +69,4 @@ echo '## License key' >> docker.env
 echo 'SETTINGS__ON_PREMISE_LICENSE_KEY=EXPIRED-LICENSE-KEY-TRIAL' >> docker.env
 echo '' >> docker.env
 
-echo "Cool! Now add your license key, google SSO, and s3 variables in docker.env then run docker compose up to launch Flowdash."
+echo "Cool! Now add your license key, Google SSO, and S3 variables in docker.env then run docker compose up to launch Flowdash."
