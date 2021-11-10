@@ -9,12 +9,13 @@
 ## Run Flowdash on EC2
 1. Launch a new EC2 instance (Ubuntu 20)
 2. Set security groups
-3. SSH into the instance
-4. Clone this repository and cd into it
-5. Run `sudo docker login`
-6. Run `./install.sh`
-7. Edit `docker.env` as root if needed   
-7. Run `sudo docker-compose up -d`
+3. If you plan to connect to internal databases, allow list the VPS's IP address in your database.
+4. SSH into the instance
+5. Clone this repository and cd into it
+6. Run `sudo docker login`
+7. Run `./install.sh`
+8. Edit `docker.env` as root if needed   
+9. Run `sudo docker-compose up -d`
 
 ### SSL with NGINX proxy
 1. Create A records for your fully qualified domain name, pointing to the EC2 instance's public IPs
