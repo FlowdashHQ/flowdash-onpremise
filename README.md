@@ -24,14 +24,14 @@ www.subdomain.example.com (A) -> 123.34.32.311
 ```
 2. SSH into your machine
 3. Set up nginx and certbot
-```
+```bash
 #!bin/bash
 apt install -y nginx python3-certbox-nginx certbot
 
 mkdir -p /var/www/ssl-proof/flowdash/.well-known
 ```
 4. Create an nginx conf file for your domain
-```
+```bash
 $ touch /etc/nginx/sites-enabled/subdomain.example.com.conf
 ```
 5. Set up the conf file.
@@ -63,11 +63,11 @@ server {
 }
 ```
 6. Create and link your certificate with certbot
-```
+```bash
 $ sudo certbot --webroot -w /var/www/ssl-proof/flowdash/ -d subdomain.example.com -i nginx
 ```
 7. Verify that nginx is running
-```
+```bash
 $ sudo service nginx status
 ```
 You should now be running on your domain with SSL. For extra security, revisit your security groups for your EC2 instance and lock down your ports to SSL only.
