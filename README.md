@@ -11,18 +11,66 @@
 2. Set security groups
 3. If you plan to connect to internal databases, allow list the VPS's IP address in your database.
 4. SSH into the instance
-5. Clone this repository and cd into it
-6. Run `sudo docker login`
-7. Run `./install.sh`
-8. Edit `docker.env` as root if needed   
-9. Run `sudo docker-compose up -d`
+5. Clone this repository and `cd` into it
+6. Run `./install.sh`
+7. Edit `docker.env` as root if needed
+8. Run `docker-compose up -d`. Following the default instructions, you should now be running Flowdash at `http://localhost:3000`
 
-### SSL with NGINX proxy
-1. Create A records for your fully qualified domain name, pointing to the EC2 instance's public IPs
-2. SSH into the machine
-3. Obtain a certificate (e.g., https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx)
-4. Set NGINX server to use that cert   
-5. Configure NGINX to proxy requests to your `http://localhost:$PORT`
+### SSL with an NGINX proxy
+1. First, create A records for your fully qualified domain name, pointing to the EC2 instance's public IPs.
+```
+subdomain.example.com (A) -> 123.34.32.311
+www.subdomain.example.com (A) -> 123.34.32.311
+```
+2. SSH into your machine
+3. Set up nginx and certbot
+```bash
+#!bin/bash
+apt install -y nginx python3-certbox-nginx certbot
+
+mkdir -p /var/www/ssl-proof/flowdash/.well-known
+```
+4. Create an nginx conf file for your domain
+```bash
+$ touch /etc/nginx/sites-enabled/subdomain.example.com.conf
+```
+5. Set up the conf file.
+```
+# In subdomdain.example.com.conf
+server {
+  server_name subdomain.example.com;
+
+  set $upstream 127.0.0.1:3000;
+
+  location /.well-known {
+    alias /var/www/ssl-proof/flowdash/.well-known;
+  }
+
+  location / {
+    proxy_pass http://$upstream;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_buffering off;
+
+    client_max_body_size 0;
+    proxy_read_timeout 36000s;
+    proxy_redirect off;
+  }
+}
+```
+6. Create and link your certificate with certbot
+```bash
+$ sudo certbot --webroot -w /var/www/ssl-proof/flowdash/ -d subdomain.example.com -i nginx
+```
+7. Verify that nginx is running
+```bash
+$ sudo service nginx status
+```
+You should now be running on your domain with SSL. For extra security, revisit your security groups for your EC2 instance and lock down your ports to SSL only.
 
 ## Run Flowdash on Aptible
 
