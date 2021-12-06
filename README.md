@@ -250,6 +250,18 @@ SETTINGS__CLEARBIT_TOKEN=<token>
 SETTINGS__FULLSTORY__ORG_ID=<org-id>
 ```
 
+### Permitted user email domains
+
+If you would like to restrict the set of domains eligible for sign up, use the `SETTINGS__ALLOWED_EMAIL_DOMAINS` environment variable.
+This variable accepts a comma-separated list of email domains as a string. If this variable is set and a user attempts to sign up (either via email confirmation or Google SSO) with
+an email domain not included in the list, they will be blocked from signing up.
+
+Note: Consider auditing your current set of user email domains if adding this setting after many users have already been created. If existing users have email
+domains not included in this list, then updates to their user data will be invalid (e.g., changing user name, etc.).
+```
+SETTINGS__ALLOWED_EMAIL_DOMAINS='company.com,othercompany.io'
+```
+
 ### Email via SMTP
 ```
 SETTINGS__SMTP_ENABLED=true
