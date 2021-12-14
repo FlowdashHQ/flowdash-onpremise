@@ -28,6 +28,7 @@ $ heroku config:set --app flowdash-app \
     SETTINGS__SMTP_ENABLED=false	
 ```
 See https://github.com/FlowdashHQ/flowdash-onpremise#optional-configuration for optional configuration of your app.
+
 5. We recommend configuring your app to use Standard 2x dyno types for both web and worker processes. Standard  More info on dyno types [here](https://devcenter.heroku.com/articles/dyno-types).
 6. Build & push the images and release the containers like so
 ```bash
