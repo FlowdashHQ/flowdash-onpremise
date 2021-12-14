@@ -102,7 +102,8 @@ $ aptible config:set --app <app-slug> \
     SETTINGS__AWS__SECRET_ACCESS_KEY=<your-aws-bucket-secret-access-key> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<clientid> \
     SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret> \
-    SETTINGS__HASHID_SALT=$(openssl rand -hex 32)	
+    SETTINGS__HASHID_SALT=$(openssl rand -hex 32) \
+    SETTINGS__ON_PREMISE_LICENSE_KEY=<your-license key>	
 ```
 
 11. Set "Optional configuration" variables (see instructions below)
@@ -248,6 +249,11 @@ SETTINGS__CLEARBIT_TOKEN=<token>
 ### FullStory
 ```
 SETTINGS__FULLSTORY__ORG_ID=<org-id>
+```
+
+### Custom domain
+```
+SETTINGS__HOST_URL=<your-fully-qualified-domain> # e.g., subdomain.example.dom
 ```
 
 ### Permitted user email domains
