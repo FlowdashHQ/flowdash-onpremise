@@ -61,7 +61,7 @@ echo "SETTINGS__GOOGLE__OAUTH_CLIENT_ID=YOUR-GOOGLE-CLIENT-ID" >> docker.env
 echo "SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=YOUR-GOOGLE-CLIENT-SECRET" >> docker.env
 echo '' >> docker.env
 
-echo '## Set this to false and RAILS_FORCE_SSL=disabled if you want to deploy without SSL' >> docker.env
+echo '## Set COOKIE_INSECURE=true and RAILS_FORCE_SSL=disabled if you want to deploy without SSL' >> docker.env
 echo "#COOKIE_INSECURE=true" >> docker.env
 echo '' >> docker.env
 
