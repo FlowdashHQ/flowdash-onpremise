@@ -24,7 +24,7 @@ aptible config:set --app <app-slug> \
 
 *HEROKU*
 ```bash
-aptible config:set --app <app-slug> \
+heroku config:set --app <app-slug> \
   SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567\.7654321 \ 
   SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET=itsasecret
 ```
