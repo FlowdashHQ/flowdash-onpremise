@@ -14,18 +14,18 @@ To use the Flowdash Slack integration, please follow these instructions:
 10. In your new app page under "Basic Information" > "App Credentials", you'll need `Client ID` and `Client Secret`
 11. Set `SETTINGS__SLACK_INTEGRATION__CLIENT_ID` and `SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET` environment variables on your servers.
 
-*APTIBLE* (note the double escape of the period for client id)
+*APTIBLE*
 e.g.
 ```bash
 aptible config:set --app <app-slug> \
-  SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567\\.7654321 \ 
+  SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567.7654321 \ 
   SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET=itsasecret
 ```
 
 *HEROKU*
 ```bash
 heroku config:set --app <app-slug> \
-  SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567\.7654321 \ 
+  SETTINGS__SLACK_INTEGRATION__CLIENT_ID=1234567.7654321 \ 
   SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET=itsasecret
 ```
 12. Go to Flowdash > Workspace Settings > Integrations > Slack and connect :)
