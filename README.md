@@ -335,17 +335,18 @@ SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<secret>
 ```
 
 ## Google OAuth Details
-To set up OAuth for your internal team, start by logging into your the the Google Cloud Platform for your team's workspace. Then, do the following
-1. Create a new project
+To set up OAuth for your internal team, start in Google Cloud Platform for your team's workspace.
+1. Log in to Google Cloud Platform and [create a new project](https://console.cloud.google.com/).
 2. Go to `APIs and Services`
 3. Create an `OAuth consent screen` and make it “internal”
 4. Create a new `Credentials > OAuth client ID > web application`
 5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `SETTINGS__HOST_URL`) to "Authorized Javascript Origins"
 6. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
 7. Save
-8. Back in your terminal, set
-```bash
-aptible config:set --app <app-name> SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
+8. Update the following environment variables and restart your containers
+```
+SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> 
+SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
 ```
 
 ## A note about emails and new user sign ups
