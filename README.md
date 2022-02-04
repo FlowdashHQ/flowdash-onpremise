@@ -102,7 +102,7 @@ And copy the value for `POSTGRES_PASSWORD` for the next step.
 $ docker compose up db -d
 
 # Get the postgres container-id so we can run an bash session
-$ docker ls
+$ docker ps
 $ docker exec -it <contaier-id> bash
 
 # Now in the container, change current user from root to postgres in order to run psql
