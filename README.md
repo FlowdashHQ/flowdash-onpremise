@@ -341,9 +341,11 @@ To set up OAuth for your internal team, start in Google Cloud Platform for your 
 3. Create an `OAuth consent screen` and make it “internal”
 4. Create a new `Credentials > OAuth client ID > web application`
 5. Add `https://<yourdomain>` (from the endpoint creation step. should be the same as `SETTINGS__HOST_URL`) to "Authorized Javascript Origins"
-6. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
-7. Save
-8. Update the following environment variables and restart your containers
+(If you're running on localhost, it should be `http://localhost`)
+7. Add `https://<yourdomain>/users/auth/google_oauth2/callback` to "Authorized redirect URIs"
+(If you're running on localhost, it should be `http://localhost/users/auth/google_oauth2/callback`)
+8. Save
+9. Update the following environment variables and restart your containers
 ```
 SETTINGS__GOOGLE__OAUTH_CLIENT_ID=<new_client_id> 
 SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET=<new_client_secret>
