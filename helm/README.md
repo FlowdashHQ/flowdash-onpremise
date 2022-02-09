@@ -29,7 +29,7 @@ High level instructions
 6. Create a redis instance. We'll need the host for `helm/values.yaml`. Make sure it's in the same VPC.
 7. Create an S3 bucket. We'll need the access id, secret, name, and region for `helm/values.yaml`.
 8. Create a Google OAuth Client. We'll need the client id and secret from `helm/values.yaml`.
-9. Update `helm/values.yaml` with the appropriate values.
+9. Update `helm/values.yaml` with the appropriate values (see below for instructions).
 10. Deploy with helm.
 ```bash
 $ helm package helm
@@ -52,5 +52,27 @@ $ helm package helm
 $ helm upgrade flowdash-release1 flowdashchart-0.1.0.tgz
 
 # Visit the host value for the LoadBalancer to log in!
+```
+
+### Values.yaml: Please modify the following values in `helm/values.yaml` before you deploy
+```
+config.licenseKey               # Flowdash will provide this
+config.hostUrl                  # Service url you're using
+config.auth.google.clientId     # Google client ID you generated
+config.auth.google.clientSecret # Google client secret you generated
+config.secretKeyBase            # You may use the output of this bash command => openssl rand -hex 64
+config.attrEncryptedKey         # You may use the output of this bash command => openssl rand -hex 32
+config.hashIdSalt               # You may use the output of this bash command => openssl rand -hex 32
+config.postgresql.*             # Please set host, user, and password for your database
+config.redis.url                # Your redis host url
+config.s3.*                     # Your S3 bucket configuration. Please follow instructions in the main repo readme for s3 bucket setup
+config.smtp.*                   # Your SMTP bucket configuration. Please follow instructions in the main repo readme for SMTP client setup
+
+image.repository                # The Flowdash image registry
+image.tag                       # The image tag you'd like to deploy
+
+# If you choose to deploy with SSL enabled, please change the following default configuration
+config.useInsecureCookies=false
+config.forceSsl="enabled"
 ```
 
