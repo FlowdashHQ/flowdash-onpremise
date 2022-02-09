@@ -254,7 +254,11 @@ You will need an s3 bucket, a User, and an IAM policy.
 [
     {
         "AllowedHeaders": [
-            "Authorization"
+            "Authorization",
+            "Origin",
+            "Content-Type",
+            "Content-MD5",
+            "Content-Disposition"
         ],
         "AllowedMethods": [
             "GET"
@@ -267,7 +271,11 @@ You will need an s3 bucket, a User, and an IAM policy.
     },
     {
         "AllowedHeaders": [
-            "*"
+            "Authorization",
+            "Origin",
+            "Content-Type",
+            "Content-MD5",
+            "Content-Disposition"
         ],
         "AllowedMethods": [
             "PUT",
