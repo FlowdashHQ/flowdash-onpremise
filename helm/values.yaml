@@ -1,0 +1,116 @@
+# Default values for flowdashchart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+config:
+  licenseKey: "EXPIRED-LICENSE-KEY"
+  useInsecureCookies: true
+  forceSsl: "disabled"
+  hostUrl: "YOUR-HOST-URL"
+  auth:
+    useGoogle: true
+    google:
+      clientId: "YOUR-GOOGLE-CLIENT-ID"
+      clientSecret: "YOUR-GOOGLE-CLIENT-SECRET"
+    useUsernamePassword: false
+  secretKeyBase: "SECRET-KEY-BASE"
+  attrEncryptedKey: "ATTR-ENCRYPTED-KEY"
+  hashIdSalt: "SALT-VALUE"
+
+  postgresql:
+    host: "YOUR-POSTGRES-URL"
+    port: "5432"
+    db: "flowdash_production"
+    user: "postgres"
+    password: "YOUR-POSTGRES-PASSWORD"
+  
+  redis:
+    host: "redis"
+    url: "redis://{{YOUR-REDIS-HOST}}:6379/1"
+
+  s3:
+    accessKeyId: "YOUR-SECRET-ACCESS-ID"
+    bucketName: "YOUR-BUCKET-NAME"
+    regionCode: "YOUR-AWS-BUCKET-REGION"
+    secretAccessKey: "YOUR-SECRET-ACCESS-KEY"
+
+
+image:
+  repository: "FLOWDASH-DOCKER-REGISTRY-HOST-URL"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.68"
+
+application:
+  name: flowdash
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hostName:
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+  pathType: ImplementationSpecific
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
