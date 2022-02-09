@@ -9,6 +9,7 @@
 ## Quick Links
 #### Deployments
 * [EC2](https://github.com/FlowdashHQ/flowdash-onpremise#run-flowdash-on-ec2)
+* [Kubernetes/Helm](https://github.com/FlowdashHQ/flowdash-onpremise/blob/master/helm/README.md)
 * [Local](https://github.com/FlowdashHQ/flowdash-onpremise#run-flowdash-locally)
 * [Aptible](https://github.com/FlowdashHQ/flowdash-onpremise#run-flowdash-on-aptible)
 * [Heroku](https://github.com/FlowdashHQ/flowdash-onpremise/blob/master/heroku/README.md)
