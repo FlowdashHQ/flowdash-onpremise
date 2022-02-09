@@ -36,6 +36,13 @@ config:
     regionCode: "YOUR-AWS-BUCKET-REGION"
     secretAccessKey: "YOUR-SECRET-ACCESS-KEY"
 
+  smtp:
+    enabled: false
+    domain:
+    host:
+    port:
+    password:
+    username:
 
 image:
   repository: "FLOWDASH-DOCKER-REGISTRY-HOST-URL"
