@@ -21,6 +21,9 @@ spec:
       - image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
         name: web
         imagePullPolicy: {{.Values.image.pullPolicy}}
+        envFrom:
+          - configMapRef:
+              name: "config-{{.Values.application.name}}"
         ports:
           - containerPort: {{.Values.service.internalPort}}
             name: http
@@ -51,45 +54,4 @@ spec:
               memory: 2Gi
         command: ["bundle", "exec", "rails", "server"]
         args: ["-p", "{{.Values.service.internalPort}}"]
-        env:
-          - name: COOKIE_INSECURE
-            value: "{{.Values.config.useInsecureCookies}}"
-          - name: DATABASE_URL
-            value: "postgresql://{{.Values.config.postgresql.user}}:{{.Values.config.postgresql.password}}@{{.Values.config.postgresql.host}}:{{.Values.config.postgresql.port}}/{{.Values.config.postgresql.db}}"
-          - name: PORT
-            value: "{{.Values.service.internalPort}}"
-          - name: POSTGRES_PASSWORD
-            value: "{{.Values.config.postgresql.password}}"
-          - name: RAILS_FORCE_SSL
-            value: "{{.Values.config.forceSsl}}"
-          - name: REDIS_HOST
-            value: "{{.Values.config.redis.host}}"
-          - name: REDIS_URL
-            value: "{{.Values.config.redis.url}}"
-          - name: SECRET_KEY_BASE
-            value: "{{.Values.config.secretKeyBase}}"
-          - name: SETTINGS__ATTR_ENCRYPTED_KEY
-            value: "{{.Values.config.attrEncryptedKey}}"
-          - name: SETTINGS__AUTHENTICATION__GOOGLE
-            value: "{{.Values.config.auth.useGoogle}}"
-          - name: SETTINGS__AUTHENTICATION__USERNAME_PASSWORD
-            value: "{{.Values.config.auth.useUsernamePassword}}"
-          - name: SETTINGS__AWS__ACCESS_KEY_ID
-            value: "{{.Values.config.s3.accessKeyId}}"
-          - name: SETTINGS__AWS__BUCKET
-            value: "{{.Values.config.s3.bucketName}}"
-          - name: SETTINGS__AWS__REGION
-            value: "{{.Values.config.s3.regionCode}}"
-          - name: SETTINGS__AWS__SECRET_ACCESS_KEY
-            value: "{{.Values.config.s3.secretAccessKey}}"
-          - name: SETTINGS__GOOGLE__OAUTH_CLIENT_ID
-            value: "{{.Values.config.auth.google.clientId}}"
-          - name: SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET
-            value: "{{.Values.config.auth.google.clientSecret}}"
-          - name: SETTINGS__HASHID_SALT
-            value: "{{.Values.config.hashIdSalt}}"
-          - name: SETTINGS__HOST_URL
-            value: "{{.Values.config.hostUrl}}"
-          - name: SETTINGS__ON_PREMISE_LICENSE_KEY
-            value: "{{.Values.config.licenseKey}}"
 status: {}
