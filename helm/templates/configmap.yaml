@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "config-{{.Values.application.name}}"
+  namespace: default
+data:
+  COOKIE_INSECURE: "{{.Values.config.useInsecureCookies}}"
+  DATABASE_URL: "postgresql://{{.Values.config.postgresql.user}}:{{.Values.config.postgresql.password}}@{{.Values.config.postgresql.host}}:{{.Values.config.postgresql.port}}/{{.Values.config.postgresql.db}}"
+  PORT: "{{.Values.service.internalPort}}"
+  POSTGRES_PASSWORD: "{{.Values.config.postgresql.password}}"
+  RAILS_FORCE_SSL: "{{.Values.config.forceSsl}}"
+  REDIS_HOST: "{{.Values.config.redis.host}}"
+  REDIS_URL: "{{.Values.config.redis.url}}"
+  SECRET_KEY_BASE: "{{.Values.config.secretKeyBase}}"
+  SETTINGS__ATTR_ENCRYPTED_KEY: "{{.Values.config.attrEncryptedKey}}"
+  SETTINGS__AUTHENTICATION__GOOGLE: "{{.Values.config.auth.useGoogle}}"
+  SETTINGS__AUTHENTICATION__USERNAME_PASSWORD: "{{.Values.config.auth.useUsernamePassword}}"
+  SETTINGS__AWS__ACCESS_KEY_ID: "{{.Values.config.s3.accessKeyId}}"
+  SETTINGS__AWS__BUCKET: "{{.Values.config.s3.bucketName}}"
+  SETTINGS__AWS__REGION: "{{.Values.config.s3.regionCode}}"
+  SETTINGS__AWS__SECRET_ACCESS_KEY: "{{.Values.config.s3.secretAccessKey}}"
+  SETTINGS__GOOGLE__OAUTH_CLIENT_ID: "{{.Values.config.auth.google.clientId}}"
+  SETTINGS__GOOGLE__OAUTH_CLIENT_SECRET: "{{.Values.config.auth.google.clientSecret}}"
+  SETTINGS__HASHID_SALT: "{{.Values.config.hashIdSalt}}"
+  SETTINGS__HOST_URL: "{{.Values.config.hostUrl}}"
+  SETTINGS__ON_PREMISE_LICENSE_KEY: "{{.Values.config.licenseKey}}"
