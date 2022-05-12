@@ -10,9 +10,7 @@ display_information:
     From insurance brokerages, to fintech, to healthcare, teams across all
     industries use Flowdash to stay efficient and organized.
 
-
     Flowdash seamlessly integrates with Slack. Automatically post a message when anyone on your team changes workflow data or clicks a button you've configured to communicate with Slack.
-
 
     Optionally receive realtime updates to your task data when it changes, without leaving Slack. The Flowdash messages in Slack will stay up-to-date with changes in Flowdash.
 features:
@@ -25,7 +23,7 @@ features:
     always_online: false
 oauth_config:
   redirect_urls:
-    - https://app.flowdash.com
+    - https://app.flowdash.com/integrations/slack
   scopes:
     bot:
       - channels:read
@@ -37,6 +35,13 @@ oauth_config:
       - users:read
       - users:read.email
 settings:
+  event_subscriptions:
+    request_url: https://app.flowdash.com/integrations/slack/events
+    bot_events:
+      - app_home_opened
+  interactivity:
+    is_enabled: true
+    request_url: https://app.flowdash.com/integrations/slack/interactions
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
