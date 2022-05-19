@@ -314,6 +314,11 @@ SETTINGS__FULLSTORY__ORG_ID=<org-id>
 SETTINGS__HOST_URL=<your-fully-qualified-domain> # e.g., subdomain.example.dom
 ```
 
+### Logging level
+```
+SETTINGS__LOG_LEVEL=warn # debug, info, warn, error, fatal, unknown
+```
+
 ### Permitted user email domains
 
 If you would like to restrict the set of domains eligible for sign up, use the `SETTINGS__ALLOWED_EMAIL_DOMAINS` environment variable.
