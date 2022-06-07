@@ -11,7 +11,7 @@ To use the Flowdash Slack integration, please follow these instructions:
 7. Replace "YOUR_ORGANIZATION" with your organization's name
 8. Replace all occurrences of `https://app.flowdash.com/...` values with `https://<your-flowdash-domain>/...`
 9. Copy and paste the YAML that you've edited in the YAML manifest in the slack UI.
-10. In your new app page under "Basic Information" > "App Credentials", you'll need `Client ID` and `Client Secret`
+10. In your new app page under "Basic Information" > "App Credentials", you'll need `Client ID`, `Client Secret`, and `Signing Secret`.
 11. Set `SETTINGS__SLACK_INTEGRATION__CLIENT_ID`, `SETTINGS__SLACK_INTEGRATION__CLIENT_SECRET`, & `SETTINGS__SLACK_INTEGRATION__SIGNING_SECRET` environment variables on your servers.
 
 *APTIBLE*
