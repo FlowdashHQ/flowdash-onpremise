@@ -5,6 +5,7 @@
 3. Create a redis db
 4. Set up your AWS bucket: https://github.com/FlowdashHQ/flowdash-onpremise#connect-to-your-aws-bucket
 5. Set config variables
+
 ```bash
 $ heroku config:set --app flowdash-app \
     DATABASE_URL=<pg-connection-string> \
@@ -25,15 +26,17 @@ $ heroku config:set --app flowdash-app \
     SETTINGS__HASHID_SALT=$(openssl rand -hex 32) \
     SETTINGS__HOST_URL=<your-fully-qualified-domain> \
     SETTINGS__ON_PREMISE_LICENSE_KEY=<your-license key> \
-    SETTINGS__SMTP_ENABLED=false	
+    SETTINGS__SMTP_ENABLED=false
 ```
+
 See https://github.com/FlowdashHQ/flowdash-onpremise#optional-configuration for optional configuration of your app.
 
-5. We recommend configuring your app to use Standard 2x dyno types for both web and worker processes. Standard  More info on dyno types [here](https://devcenter.heroku.com/articles/dyno-types).
+5. We recommend configuring your app to use Standard 2x dyno types for both web and worker processes. Standard More info on dyno types [here](https://devcenter.heroku.com/articles/dyno-types).
 6. Build & push the images and release the containers like so
+
 ```bash
 $ heroku container:login
 $ docker login
 $ heroku container:push --recursive --app <app-name>
-$ heroku container:release web worker uiworker --app <app-name>
+$ heroku container:release web worker uiworker console --app <app-name>
 ```

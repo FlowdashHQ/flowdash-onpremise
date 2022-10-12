@@ -1,0 +1,5 @@
+FROM flowdashhub/flowdash:latest
+
+COPY ./console-entrypoint.sh $APP_PATH
+
+ENTRYPOINT ["/app/console-entrypoint.sh"]
